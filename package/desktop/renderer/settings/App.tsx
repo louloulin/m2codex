@@ -55,7 +55,7 @@ export function App() {
     for (const spec of PROVIDER_SPECS) init[spec.provider] = emptyProviderFields();
     return init;
   });
-  const [port, setPort] = useState(8788);
+  const [port, setPort] = useState(8988);
   const [dataDir, setDataDirField] = useState("");
   const [autostart, setAutostartFlag] = useState(false);
   const [showAdminAfter, setShowAdminAfter] = useState(true);
@@ -291,7 +291,7 @@ export function App() {
         <Divider style={{ margin: "16px 0" }} />
 
         <Form.Item label="Port">
-          <InputNumber min={1} max={65535} value={port} onChange={(v) => setPort(v ?? 8788)} />
+          <InputNumber min={1} max={65535} value={port} onChange={(v) => setPort(v ?? 8988)} />
         </Form.Item>
 
         <Form.Item label="Data location">

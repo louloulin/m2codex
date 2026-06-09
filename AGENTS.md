@@ -56,7 +56,7 @@ adjust your assumptions accordingly.
 - `web/` — Vite + React 18 admin console (separate workspace). Builds to
   `dist/web/`. Run `npm run web:install` once, then `npm run web:build` (or
   `npm run build:all` to do both backend + frontend). Dev: `npm run web:dev`
-  on port 5173 with `/admin/api` proxied to 8788.
+  on port 5173 with `/admin/api` proxied to 8988.
 - `scripts/install.sh` and `scripts/install.ps1` — bootstrap scripts (clone or
   in-repo run, install deps, build, test).
 - `mimoskill/` — a self-contained directory with helpers for MiMo + workarounds

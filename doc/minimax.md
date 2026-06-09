@@ -63,7 +63,7 @@ export MINIMAX_API_KEY=<your_key>
 mimo2codex --model minimax
 ```
 
-Open the webui (`http://127.0.0.1:8788/admin/`) and click **Probe** on the MiniMax model row for one-click verification.
+Open the webui (`http://127.0.0.1:8988/admin/`) and click **Probe** on the MiniMax model row for one-click verification.
 
 ## Lite setup (env-var single-instance)
 

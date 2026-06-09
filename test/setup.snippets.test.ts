@@ -7,7 +7,7 @@ import {
 } from "../src/setup/snippets.js";
 
 describe("buildCcSwitchFiles", () => {
-  const host = { host: "127.0.0.1", port: 8788 };
+  const host = { host: "127.0.0.1", port: 8988 };
 
   it("returns the two raw file bodies that ccSwitchSnippet inlines", () => {
     const target = resolveSnippetTarget("mimo");
@@ -16,7 +16,7 @@ describe("buildCcSwitchFiles", () => {
     // by detectAuthJsonOwner() to distinguish our writes from foreign ones.
     expect(JSON.parse(files.authJson)).toEqual({ OPENAI_API_KEY: "mimo2codex-local" });
     expect(files.configToml).toContain('model = "mimo-v2.5-pro"');
-    expect(files.configToml).toContain('base_url = "http://127.0.0.1:8788/v1"');
+    expect(files.configToml).toContain('base_url = "http://127.0.0.1:8988/v1"');
     expect(files.configToml).toContain("requires_openai_auth = true");
 
     // The markdown snippet for cc-switch must inline both bodies verbatim.

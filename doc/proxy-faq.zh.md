@@ -15,7 +15,7 @@ mimo2codex 在 Mac / Windows 上跑起来后，最常踩的坑不是程序本身
 
 ```
 [Codex CLI / Codex Desktop]
-        │  ① 本地回环（127.0.0.1:8788）
+        │  ① 本地回环（127.0.0.1:8988）
         ▼
 [mimo2codex]
         │  ② 出站 HTTPS（受系统代理 / VPN / 防火墙影响）
@@ -25,7 +25,7 @@ mimo2codex 在 Mac / Windows 上跑起来后，最常踩的坑不是程序本身
 
 两条链路各自有不同的失败模式：
 
-- **① 客户端 → mimo2codex**：本地回环，几乎不出问题。除非 `8788` 端口被占用或 mimo2codex 没启动 —— 此时客户端报 `ECONNREFUSED`，**不是 502**。
+- **① 客户端 → mimo2codex**：本地回环，几乎不出问题。除非 `8988` 端口被占用或 mimo2codex 没启动 —— 此时客户端报 `ECONNREFUSED`，**不是 502**。
 - **② mimo2codex → 上游 API**：502 / `ETIMEDOUT` / `ENOTFOUND` 等错误的主要发源地。
 
 **关键事实（v0.4.5+）**：mimo2codex 启动时**会读** `HTTPS_PROXY` / `HTTP_PROXY` / `NO_PROXY` 环境变量，把上游 fetch 路由到代理 —— 行为与 `curl` / `git` 一致。但**"系统代理" ≠ "进程代理"**：你在 macOS 系统设置、Clash for Mac / Clash for Windows / Surge / V2RayN 等 UI 里点的"系统代理"开关**不会**自动把这几个 env 导出给 mimo2codex 进程。要让 mimo2codex 走代理，得**显式 `export`** `HTTPS_PROXY` / `HTTP_PROXY`（见 §3.2 / §4.2）—— Docker 部署就在 `docker-compose.yml` 的 `environment:` 段声明。
@@ -92,7 +92,7 @@ source ~/.zshrc
 **重要**：
 
 - `7890` 是 Clash 的默认 HTTP 代理端口；Surge 默认是 `6152` / `6153`；V2Box 默认 `1087` 之类。请按你自己代理软件实际监听端口替换。
-- **必须设 `NO_PROXY=localhost,127.0.0.1,::1`**。否则 Codex 通过 `127.0.0.1:8788` 调 mimo2codex 时也会被代理软件截走，出现 `tunneling socket could not be established` 或类似错误。
+- **必须设 `NO_PROXY=localhost,127.0.0.1,::1`**。否则 Codex 通过 `127.0.0.1:8988` 调 mimo2codex 时也会被代理软件截走，出现 `tunneling socket could not be established` 或类似错误。
 
 ### 3.3 macOS 自查命令
 
@@ -103,8 +103,8 @@ env | grep -i proxy
 # 2. 绕过 mimo2codex，用 curl 直接试上游（验证网络链路本身）
 curl -v https://token-plan-cn.xiaomimimo.com/v1/models -H "Authorization: Bearer $YOUR_KEY"
 
-# 3. 看 mimo2codex 是否监听 8788
-lsof -i :8788
+# 3. 看 mimo2codex 是否监听 8988
+lsof -i :8988
 
 # 4. 看 mimo2codex 日志（如果重定向到了文件）
 tail -n 50 ~/.mimo2codex/mimo2codex.log 2>/dev/null
@@ -165,8 +165,8 @@ Get-ChildItem env: | Where-Object Name -match 'proxy'
 # 2. 用 curl 直接试上游（PowerShell 7+ 自带 curl.exe；Windows 10 也内置）
 curl.exe -v https://token-plan-cn.xiaomimimo.com/v1/models -H "Authorization: Bearer $env:YOUR_KEY"
 
-# 3. 看 mimo2codex 是否监听 8788
-Get-NetTCPConnection -LocalPort 8788 -ErrorAction SilentlyContinue
+# 3. 看 mimo2codex 是否监听 8988
+Get-NetTCPConnection -LocalPort 8988 -ErrorAction SilentlyContinue
 
 # 4. 看 mimo2codex 日志（默认目录）
 Get-Content $env:USERPROFILE\.mimo2codex\mimo2codex.log -Tail 50 -ErrorAction SilentlyContinue
@@ -202,13 +202,13 @@ Get-Content $env:USERPROFILE\.mimo2codex\mimo2codex.log -Tail 50 -ErrorAction Si
   - 在同一台主机（或同一个 Docker 网络里）用 `curl -v -x http://<proxy>:<port> https://upstream.example.com/` 直连测一下，curl 也不通就先修代理这一侧。
   - **Docker 坑**：`HTTPS_PROXY=http://127.0.0.1:7890` 在容器里指的是容器自己，不是宿主。要写 `host.docker.internal`（mac/win）或宿主的 LAN IP。
 
-### `connect ECONNREFUSED 127.0.0.1:8788`
+### `connect ECONNREFUSED 127.0.0.1:8988`
 
 - **含义**：Codex 客户端**连不上 mimo2codex 自己**。
 - **跟 502 的区别**：502 = "代理在跑但上游不通"；ECONNREFUSED = "代理根本没起或端口不对"。
 - **自查**：
-  - Mac：`lsof -i :8788`
-  - Win：`Get-NetTCPConnection -LocalPort 8788`
+  - Mac：`lsof -i :8988`
+  - Win：`Get-NetTCPConnection -LocalPort 8988`
   - 如果端口被别的进程占了：换端口 `mimo2codex --port 8889`，并同步改 Codex 的 baseUrl。
 
 ### `Reconnecting... 1/5 ... unexpected status 502 Bad Gateway`
@@ -318,7 +318,7 @@ mimo2codex
 
 通常的发生路径：
 
-1. 你在 Codex Desktop 选了"自定义 OpenAI 兼容服务"，把 baseUrl 填成了 `http://127.0.0.1:8788`。
+1. 你在 Codex Desktop 选了"自定义 OpenAI 兼容服务"，把 baseUrl 填成了 `http://127.0.0.1:8988`。
 2. 但 **model 字段保留了 Codex 出厂默认**。不同 Codex 版本默认值不同，最近见过 `gpt-5`、`gpt-5-codex`、`gpt-5-mini`、`gpt-5.4`、`gpt-5.4-mini` 这些字面量。
 3. Codex 把这个字面量原样塞进每个请求的 `model` 字段。
 4. mimo2codex 在任何 provider 的 builtinModels 里都找不到 `gpt-5.4`，于是 fallback 到默认 provider 的 defaultModel（`mimo-v2.5-pro`）。

@@ -3,7 +3,7 @@ import { join } from "node:path";
 import type { RuntimeConfig } from "../shared/types.js";
 
 export const DEFAULT_RUNTIME: RuntimeConfig = {
-  port: 8788,
+  port: 8988,
   autostart: false,
 };
 

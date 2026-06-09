@@ -266,7 +266,7 @@ HTTPS_PROXY=http://127.0.0.1:7890 npm run sidecar:build
 
 ### Q: 用 ChatGPT / Codex 把 mimo2codex 当代理时端口要填哪个
 
-填托盘状态 header 上显示的那个（默认 8788，被占自动顺延）。Settings 窗的 Port 字段就是这个。
+填托盘状态 header 上显示的那个（默认 8988，被占自动顺延）。Settings 窗的 Port 字段就是这个。
 
 ---
 

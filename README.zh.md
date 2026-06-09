@@ -76,7 +76,7 @@
 - ✅ 视觉——`mimo-v2.5` / `mimo-v2-omni` 走视觉路径；pro/flash 自动剥图 + 占位文本
 - ✅ 思维链透传 + 正确的**多轮 `reasoning_content` 回传**（按 [MiMo 官方公告](https://platform.xiaomimimo.com/docs/zh-CN/usage-guide/passing-back-reasoning_content)要求；`--no-reasoning` 隐藏终端显示但回传仍完整保留）
 - ✅ MiMo 主机自动切换：`tp-*` key → token-plan 主机，`sk-*` key → pay-as-you-go 主机
-- ✅ 本地 Admin Web UI（`http://127.0.0.1:8788/admin/`）：模型清单 / 别名管理 / 聊天日志 / Token 统计 / Provider 配置
+- ✅ 本地 Admin Web UI（`http://127.0.0.1:8988/admin/`）：模型清单 / 别名管理 / 聊天日志 / Token 统计 / Provider 配置
 - ✅ sqlite 持久化（默认 `~/.mimo2codex/data.db`，`--data-dir` 可改）
 - ✅ cc-switch 集成（`mimo2codex print-cc-switch` 输出粘贴片段）
 - ⚠️ **`/hatch` 自定义宠物生成**——纯 MiMo 做不到。Codex 的 `/hatch` 在客户端硬编码调 OpenAI 的 `image_gen` 工具，这步代理拦不住；MiMo 自己又没有图像生成 endpoint。绕路方案走 `mimoskill/`（免费，不要 OpenAI key），见下文。
@@ -211,7 +211,7 @@ cc-switch 的「获取模型」按钮调 `/v1/models`，mimo2codex 已实现—�
 
 ## Admin 控制台
 
-启动后浏览器访问 `http://127.0.0.1:8788/admin/`。
+启动后浏览器访问 `http://127.0.0.1:8988/admin/`。
 
 **概览**——24h / 7d / 30d Token 用量、错误率、按 provider/模型聚合的请求统计、模型映射记录、最近 10 条请求。
 
@@ -284,7 +284,7 @@ mimo2codex --model generic
 | 参数 | 环境变量 | 默认 | 说明 |
 |---|---|---|---|
 | `--model <shortcut>` | `MIMO2CODEX_DEFAULT_PROVIDER` | `mimo` | 默认 provider：`mimo` 或 `ds` |
-| `--port`, `-p` | `MIMO2CODEX_PORT` | `8788` | 监听端口 |
+| `--port`, `-p` | `MIMO2CODEX_PORT` | `8988` | 监听端口 |
 | `--host` | `MIMO2CODEX_HOST` | `127.0.0.1` | 绑定地址 |
 | `--base-url` | `MIMO_BASE_URL` / `DEEPSEEK_BASE_URL` | 见上表 | 当前默认 provider 的 base URL |
 | `--api-key` | `MIMO_API_KEY` / `DS_API_KEY` / `DEEPSEEK_API_KEY` | _至少一个必填_ | 当前默认 provider 的 key（其他 provider 走对应 env 变量） |
@@ -534,7 +534,7 @@ git clone https://github.com/7as0nch/mimo2codex && cd mimo2codex
 npm install
 npm run web:install  # 安装前端依赖（仅首次）
 npm run dev          # tsx 跑后端，不用构建（默认 admin UI 仍生效但需要先 web:build 一次）
-npm run web:dev      # 另开窗口跑 vite dev（5173，自动 proxy /admin/api → 8788）
+npm run web:dev      # 另开窗口跑 vite dev（5173，自动 proxy /admin/api → 8988）
 npm test             # 100 个 vitest
 npm run build        # 仅后端 → dist/cli.js
 npm run web:build    # 仅前端 → dist/web/

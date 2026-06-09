@@ -18,7 +18,7 @@ npm test                   # vitest run (all tests)
 npm run test:watch         # vitest watch mode
 npx vitest run test/reqToChat.test.ts   # single test file
 npm run web:install        # install web/ deps (needed once before web:build)
-npm run web:dev            # Vite dev server on :5173, proxies /admin/api → :8788
+npm run web:dev            # Vite dev server on :5173, proxies /admin/api → :8988
 npm run web:build          # production build of admin UI → dist/web/
 ```
 
@@ -29,7 +29,7 @@ Release: `npm run release:patch`, `release:minor`, `release:major`, `release:bet
 ### Request flow
 
 ```
-Codex Client → mimo2codex (:8788) → Provider selection (model field)
+Codex Client → mimo2codex (:8988) → Provider selection (model field)
   → reqToChat (Responses API → Chat Completions)
   → upstream HTTP call to provider
   → respToResponses / streamToSse (Chat Completions → Responses API SSE)

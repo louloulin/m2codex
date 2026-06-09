@@ -1,7 +1,7 @@
 # Codex Enable — one-click model switching in the webui (cc-switch replacement)
 
 > Added **2026-05-14**, available since **v0.2.6**.
-> WebUI entry: `http://127.0.0.1:8788/admin/` → sidebar **"Codex 启用"**.
+> WebUI entry: `http://127.0.0.1:8988/admin/` → sidebar **"Codex 启用"**.
 
 ## What it does
 

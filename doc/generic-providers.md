@@ -331,15 +331,15 @@ To avoid this silent fallback, today's options:
 
 ## Manage in admin webui (no manual JSON editing)
 
-Open `http://127.0.0.1:8788/admin/`:
+Open `http://127.0.0.1:8988/admin/`:
 
-- **Generic Providers page** (sidebar, [`/admin/providers`](http://127.0.0.1:8788/admin/providers)): visual CRUD for generic providers
+- **Generic Providers page** (sidebar, [`/admin/providers`](http://127.0.0.1:8988/admin/providers)): visual CRUD for generic providers
   - Table lists every entry in `providers.json`; each row has Edit / Delete
   - "+ Add Provider" opens a form with placeholders, inline validation (id can't collide with builtins, no spaces, baseUrl required, etc.)
   - Models list is dynamically editable — each model takes contextWindow / maxOutputTokens / vision / reasoning / web search metadata
   - "Edit raw JSON" escape hatch — edit the full `providers.json` text, only writes when JSON validates
   - On save, writes `~/.mimo2codex/providers.json` and shows a **"Restart mimo2codex to apply"** banner — there is no hot reload; the registry initializes once at startup
-- **Setup guide** ([`/admin/setup`](http://127.0.0.1:8788/admin/setup)): provider dropdown, three tabs auto-render `auth.json + config.toml` for direct / env-key / cc-switch flows. Each code block has a Copy button
+- **Setup guide** ([`/admin/setup`](http://127.0.0.1:8988/admin/setup)): provider dropdown, three tabs auto-render `auth.json + config.toml` for direct / env-key / cc-switch flows. Each code block has a Copy button
 - **Dashboard**: all registered providers (including generics) shown in Provider cards with key-presence status
 - **Logs**: filter by provider (generic ids appear in the dropdown)
 

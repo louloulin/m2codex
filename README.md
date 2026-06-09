@@ -77,7 +77,7 @@ Conceptually a sibling of [openrouter](https://openrouter.ai), [claude-code-rout
 - ✅ Vision — only `mimo-v2.5` and `mimo-v2-omni`; pro/flash auto-strip images with a placeholder
 - ✅ Reasoning passthrough + correct **multi-turn `reasoning_content` round-trip** per [MiMo's official spec](https://platform.xiaomimimo.com/docs/zh-CN/usage-guide/passing-back-reasoning_content) (with `--no-reasoning` to hide from terminal — round-trip stays intact)
 - ✅ MiMo host auto-routing — `tp-*` keys → token-plan host, `sk-*` keys → pay-as-you-go host
-- ✅ Local admin web UI at `http://127.0.0.1:8788/admin/` — model catalog, alias mgmt, chat logs, token stats, provider config
+- ✅ Local admin web UI at `http://127.0.0.1:8988/admin/` — model catalog, alias mgmt, chat logs, token stats, provider config
 - ✅ sqlite persistence (default `~/.mimo2codex/data.db`, override with `--data-dir`)
 - ✅ cc-switch integration (`mimo2codex print-cc-switch` outputs paste-ready snippets)
 - ⚠️ **`/hatch` custom pet generation** — pure MiMo can't do this. Codex's `/hatch` is hardcoded to call OpenAI's `image_gen` tool client-side, and we can't intercept that from the proxy layer. MiMo also has no image-generation endpoint. Workaround via `mimoskill/` (free, no OpenAI key required) — see below.
@@ -212,7 +212,7 @@ cc-switch's "Fetch Models" button calls `/v1/models`, which mimo2codex implement
 
 ## Admin console
 
-Browse to `http://127.0.0.1:8788/admin/` after start.
+Browse to `http://127.0.0.1:8988/admin/` after start.
 
 **Dashboard** — 24h / 7d / 30d token usage, error rate, requests aggregated by provider/model, model-mapping records, last 10 requests.
 
@@ -285,7 +285,7 @@ Full field reference, `wireApi: "responses"` passthrough mode, copy-pasteable ex
 | Flag | Env | Default | Notes |
 |---|---|---|---|
 | `--model <shortcut>` | `MIMO2CODEX_DEFAULT_PROVIDER` | `mimo` | default provider: `mimo` or `ds` |
-| `--port`, `-p` | `MIMO2CODEX_PORT` | `8788` | listen port |
+| `--port`, `-p` | `MIMO2CODEX_PORT` | `8988` | listen port |
 | `--host` | `MIMO2CODEX_HOST` | `127.0.0.1` | bind host |
 | `--base-url` | `MIMO_BASE_URL` / `DEEPSEEK_BASE_URL` | see table above | base URL for the default provider |
 | `--api-key` | `MIMO_API_KEY` / `DS_API_KEY` / `DEEPSEEK_API_KEY` | _at least one required_ | api key for the default provider (other providers read their own env vars) |
@@ -544,7 +544,7 @@ git clone https://github.com/7as0nch/mimo2codex && cd mimo2codex
 npm install
 npm run web:install  # frontend deps (first run only)
 npm run dev          # backend via tsx, no build step
-npm run web:dev      # vite dev server (5173, proxies /admin/api → 8788) — separate terminal
+npm run web:dev      # vite dev server (5173, proxies /admin/api → 8988) — separate terminal
 npm test             # 100 vitest cases
 npm run build        # backend only → dist/cli.js
 npm run web:build    # frontend only → dist/web/

@@ -34,18 +34,18 @@ afterEach(() => {
 
 describe("SidecarManager", () => {
   it("spawns with the configured binary + args", async () => {
-    const sm = new SidecarManager({ binPath: "/path/sidecar", dataDir: "/data", port: 8788 });
+    const sm = new SidecarManager({ binPath: "/path/sidecar", dataDir: "/data", port: 8988 });
     await sm.start();
     expect(spawnMock).toHaveBeenCalledWith(
       "/path/sidecar",
-      expect.arrayContaining(["--data-dir", "/data", "--port", "8788"]),
+      expect.arrayContaining(["--data-dir", "/data", "--port", "8988"]),
       expect.anything()
     );
     expect(sm.status().kind).toBe("running");
   });
 
   it("transitions to crashed on non-zero exit", async () => {
-    const sm = new SidecarManager({ binPath: "/p", dataDir: "/d", port: 8788, maxRestarts: 0 });
+    const sm = new SidecarManager({ binPath: "/p", dataDir: "/d", port: 8988, maxRestarts: 0 });
     await sm.start();
     child.emit("exit", 1, null);
     await new Promise((r) => setImmediate(r));
@@ -53,7 +53,7 @@ describe("SidecarManager", () => {
   });
 
   it("auto-restarts once on first crash", async () => {
-    const sm = new SidecarManager({ binPath: "/p", dataDir: "/d", port: 8788, maxRestarts: 1 });
+    const sm = new SidecarManager({ binPath: "/p", dataDir: "/d", port: 8988, maxRestarts: 1 });
     await sm.start();
     expect(spawnMock).toHaveBeenCalledTimes(1);
     // The next spawn should return a fresh FakeChild so onExit doesn't loop
@@ -66,7 +66,7 @@ describe("SidecarManager", () => {
 
   it("stops with SIGTERM, escalates to SIGKILL after grace period", async () => {
     vi.useFakeTimers();
-    const sm = new SidecarManager({ binPath: "/p", dataDir: "/d", port: 8788, killGraceMs: 100 });
+    const sm = new SidecarManager({ binPath: "/p", dataDir: "/d", port: 8988, killGraceMs: 100 });
     await sm.start();
     // Override kill to NOT auto-emit exit, so we can drive the grace timer
     child.kill = vi.fn(() => true);

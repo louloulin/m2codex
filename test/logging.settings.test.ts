@@ -17,7 +17,7 @@ let dataDir: string;
 
 const cfg: Config = {
   host: "127.0.0.1",
-  port: 8788,
+  port: 8988,
   baseUrl: "https://api.xiaomimimo.com/v1",
   apiKey: "sk-test",
   exposeReasoning: true,

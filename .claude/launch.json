@@ -12,7 +12,7 @@
       "name": "sidecar",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["start"],
-      "port": 8788
+      "port": 8988
     },
     {
       "name": "admin-web",

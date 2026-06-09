@@ -1,0 +1,15 @@
+{
+  "change": "env-and-json-ui-config",
+  "phase": "design",
+  "mode": "compact",
+  "canonical_spec": "openspec",
+  "generated_by": "comet-handoff.sh",
+  "context_hash": "e84d75f26d95d35134ee4a4b44bbdf4f75bf9e5827b6431a4452b4d9cd5b251e",
+  "files": [
+    { "path": "openspec/changes/env-and-json-ui-config/proposal.md", "sha256": "2c09632d826c7efffc277e8ebe11b21db39f787c9e6e6bf64f5bf59ad695fdb9" },
+    { "path": "openspec/changes/env-and-json-ui-config/design.md", "sha256": "5ee3940904e2cde7059738f93f2e0dc2ce4bb0c4c8121c5189deadc6d22e9f4d" },
+    { "path": "openspec/changes/env-and-json-ui-config/tasks.md", "sha256": "37961dbd0676066a57e2d2dc97c7e6fce0ceddf4567f688c6313884c10cc8304" },
+    { "path": "openspec/changes/env-and-json-ui-config/specs/env-runtime-settings/spec.md", "sha256": "3e8bee7e807273f942c3c6d16ef9afea0a5c1ecc02bdb13b531a845553d44e0e" },
+    { "path": "openspec/changes/env-and-json-ui-config/specs/generic-env-provider/spec.md", "sha256": "0538170e9b25084f9279f1c18951a027e3e0440c3f89a1f71451f7a3fa2a2079" }
+  ]
+}

@@ -17,7 +17,7 @@ async function request<T>(method: string, path: string, body?: unknown): Promise
     headers: body ? { "Content-Type": "application/json" } : undefined,
     body: body ? JSON.stringify(body) : undefined,
     // Same-origin cookies (session) flow with /admin/api/* in both prod and the
-    // Vite dev proxy (which forwards Set-Cookie + Cookie through to :8788).
+    // Vite dev proxy (which forwards Set-Cookie + Cookie through to :8988).
     credentials: "same-origin",
   });
   const text = await res.text();

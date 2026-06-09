@@ -35,7 +35,7 @@ async function loadModules() {
   return { state, snippets, paths };
 }
 
-const host = { host: "127.0.0.1", port: 8788 };
+const host = { host: "127.0.0.1", port: 8988 };
 
 describe("codex/state — applyCodex", () => {
   it("creates ~/.codex/ + writes auth.json and config.toml on a fresh machine", async () => {
@@ -54,7 +54,7 @@ describe("codex/state — applyCodex", () => {
     expect(auth.OPENAI_API_KEY).toBe("mimo2codex-local");
     const toml = readFileSync(path.join(paths.codexDir(), "config.toml"), "utf-8");
     expect(toml).toContain('model = "mimo-v2.5-pro"');
-    expect(toml).toContain('base_url = "http://127.0.0.1:8788/v1"');
+    expect(toml).toContain('base_url = "http://127.0.0.1:8988/v1"');
   });
 
   it("backs up existing auth.json + config.toml with the SAME ts (paired pair)", async () => {

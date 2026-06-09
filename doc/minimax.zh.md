@@ -63,7 +63,7 @@ export MINIMAX_API_KEY=<your_key>
 mimo2codex --model minimax
 ```
 
-打开 webui (`http://127.0.0.1:8788/admin/`) 在模型行点 **"探测"** 按钮一键自验链路。
+打开 webui (`http://127.0.0.1:8988/admin/`) 在模型行点 **"探测"** 按钮一键自验链路。
 
 ## 简易配置（env-var 单实例）
 

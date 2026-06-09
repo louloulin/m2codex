@@ -93,8 +93,8 @@ Docker 镜像已经默认 `MIMO2CODEX_AUTH=on`，不需要做任何额外操作�
 ```bash
 docker compose up -d
 # 直接打开浏览器即可，不用 docker logs：
-open http://localhost:8788          # mac / Linux
-start http://localhost:8788         # Windows
+open http://localhost:8988          # mac / Linux
+start http://localhost:8988         # Windows
 ```
 
 如果出于某种原因你想在 Docker 里关掉鉴权（**不推荐**，等于把上游 key 暴露给任何能访问到容器端口的人）：
@@ -109,7 +109,7 @@ services:
 
 ## 首次启动：创建首位管理员
 
-启动后直接在浏览器打开 `http://<host>:8788/admin/`，SPA 检测到 `users` 表是空的，自动跳到 **首次启动初始化** 页面：
+启动后直接在浏览器打开 `http://<host>:8988/admin/`，SPA 检测到 `users` 表是空的，自动跳到 **首次启动初始化** 页面：
 
 - **管理员账号**：随便起个名字（如 `root` / `admin`）
 - **显示名**：可空，默认与账号一致
@@ -127,8 +127,8 @@ services:
 
 ```bash
 docker compose up -d
-open http://localhost:8788          # mac / Linux
-start http://localhost:8788         # Windows
+open http://localhost:8988          # mac / Linux
+start http://localhost:8988         # Windows
 ```
 
 不需要 `docker logs`、不需要 `docker exec`、不需要拷贝 token。
@@ -173,7 +173,7 @@ token 怎么来：
 { "OPENAI_API_KEY": "m2c_<你的 token>" }
 ```
 
-`~/.codex/config.toml` 里 base_url 改成你的服务地址（默认 `http://127.0.0.1:8788/v1`，Docker 部署改为 `http://<host>:8788/v1` 或带域名的 https）。
+`~/.codex/config.toml` 里 base_url 改成你的服务地址（默认 `http://127.0.0.1:8988/v1`，Docker 部署改为 `http://<host>:8988/v1` 或带域名的 https）。
 
 > 不想手撕文件？去 `/admin/codex` 顶部「当前状态」卡片右上角点 **导出到本地**，会下载 `auth.json` + `config.toml` + 一个本机执行的小脚本。下面 [Codex 配置导入 / 导出](#codex-配置导入--导出) 一节有完整流程。
 

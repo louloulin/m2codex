@@ -26,12 +26,12 @@ describe("readEnv", () => {
 describe("writeEnv", () => {
   it("upserts keys, preserving existing comments + ordering", () => {
     writeFileSync(join(dir, ".env"), "# header\nMIMO_API_KEY=old\nOTHER=keep\n");
-    writeEnv(dir, { MIMO_API_KEY: "new", PORT: "8788" });
+    writeEnv(dir, { MIMO_API_KEY: "new", PORT: "8988" });
     const out = readFileSync(join(dir, ".env"), "utf8");
     expect(out).toMatch(/# header/);
     expect(out).toMatch(/MIMO_API_KEY=new/);
     expect(out).toMatch(/OTHER=keep/);
-    expect(out).toMatch(/PORT=8788/);
+    expect(out).toMatch(/PORT=8988/);
   });
   it("creates file when missing", () => {
     writeEnv(dir, { MIMO_API_KEY: "sk-1" });

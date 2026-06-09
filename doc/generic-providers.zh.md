@@ -331,15 +331,15 @@ MiniMax 拒绝若干 OpenAI / MiMo / DeepSeek 都接受的字段。开 `minimaxC
 
 ## 在 admin webui 配置（不用手写 JSON）
 
-打开 `http://127.0.0.1:8788/admin/`：
+打开 `http://127.0.0.1:8988/admin/`：
 
-- **通用 Provider 页**（侧栏，[`/admin/providers`](http://127.0.0.1:8788/admin/providers)）：可视化增删改查 generic providers
+- **通用 Provider 页**（侧栏，[`/admin/providers`](http://127.0.0.1:8988/admin/providers)）：可视化增删改查 generic providers
   - 表格列出 `providers.json` 里所有条目，每条可「编辑」/「删除」
   - 「+ 添加 Provider」弹出表单，所有字段都有占位符提示和实时校验（id 不能与内置冲突 / 不能含空格 / baseUrl 必填等）
   - 模型清单可动态增删，每个模型可填 contextWindow / maxOutputTokens / vision / reasoning / web search 等元信息
   - 「编辑原始 JSON」逃生口——直接编辑 `providers.json` 全文，校验通过才会写入
   - 保存后写 `~/.mimo2codex/providers.json`，UI 提示 **「重启 mimo2codex 让配置生效」**——目前不做热重载，启动期一次性加载
-- **对接指引页**（[`/admin/setup`](http://127.0.0.1:8788/admin/setup)）：下拉选 provider，三个 Tab 自动渲染 `auth.json + config.toml` 三种粘贴方式（直接修改 / env-key / cc-switch），每个 codeblock 有「复制」按钮
+- **对接指引页**（[`/admin/setup`](http://127.0.0.1:8988/admin/setup)）：下拉选 provider，三个 Tab 自动渲染 `auth.json + config.toml` 三种粘贴方式（直接修改 / env-key / cc-switch），每个 codeblock 有「复制」按钮
 - **概览页**：所有已注册 provider（含 generic）列在 Provider 卡片里，显示 key 是否已配置
 - **日志页**：按 provider 过滤（generic id 直接出现在下拉里）
 

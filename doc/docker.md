@@ -35,11 +35,11 @@ cp .env.example .env
 docker compose up -d
 
 # 3. Open admin UI
-open http://localhost:8788          # mac/Linux
-start http://localhost:8788         # Windows
+open http://localhost:8988          # mac/Linux
+start http://localhost:8988         # Windows
 ```
 
-Done. Point Codex at `http://localhost:8788/v1` as the base URL.
+Done. Point Codex at `http://localhost:8988/v1` as the base URL.
 
 ## Plain `docker run` one-liner
 
@@ -48,13 +48,13 @@ If you don't want compose:
 ```bash
 # Minimal (key inline, no persistence)
 docker run -d --name mimo2codex \
-  -p 8788:8788 \
+  -p 8988:8988 \
   -e MIMO_API_KEY=sk-xxxxxxxxxxxx \
   ghcr.io/7as0nch/mimo2codex:latest
 
 # With persistence + .env file
 docker run -d --name mimo2codex \
-  -p 8788:8788 \
+  -p 8988:8988 \
   --env-file ./.env \
   -e MIMO2CODEX_DATA_DIR=/data \
   -v ~/.mimo2codex:/data \
@@ -244,12 +244,12 @@ volumes:
   - ./.mimo2codex:/data
 ```
 
-### Q: Port 8788 already in use
+### Q: Port 8988 already in use
 
 Change host-side port in compose `ports:`:
 ```yaml
 ports:
-  - "9999:8788"
+  - "9999:8988"
 ```
 Then browser → http://localhost:9999.
 

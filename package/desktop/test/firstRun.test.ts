@@ -14,7 +14,7 @@ describe("needsFirstRunSetup", () => {
     expect(needsFirstRunSetup(dir)).toBe(true);
   });
   it("true when .env exists but no provider key is set", () => {
-    writeFileSync(join(dir, ".env"), "PORT=8788\n");
+    writeFileSync(join(dir, ".env"), "PORT=8988\n");
     expect(needsFirstRunSetup(dir)).toBe(true);
   });
   it("true when key is the template placeholder", () => {

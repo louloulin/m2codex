@@ -79,6 +79,14 @@ export const RELEASE_NOTES: ReleaseNote[] = [
         },
         location: { en: "Logs page → Storage settings", zh: "日志页 → 存储设置" },
       },
+      {
+        kind: "improved",
+        title: { en: "Default listen port is now 8988 (was 8788)", zh: "默认监听端口改为 8988（原 8788）" },
+        description: {
+          en: "8788 is increasingly held by other dev tools (Vite, webpack-dev-server, various Node CLIs), so a fresh install often needed --port to dodge collisions. New default is 8988. Override with --port, MIMO2CODEX_PORT, or PORT (desktop shell .env).",
+          zh: "8788 越来越容易被其他开发工具（Vite、webpack-dev-server、各种 Node CLI）占用，新装用户经常要加 --port 才能避免冲突。新默认端口 8988。可用 --port、MIMO2CODEX_PORT 或桌面端 .env 里的 PORT 覆盖。",
+        },
+      },
     ],
   },
 ];

@@ -1,0 +1,16 @@
+workflow: full
+phase: build
+build_mode: null
+isolation: null
+verify_mode: null
+base_ref: e11f975b95239418aac5700e7d73956e6cfbd8f3
+design_doc: docs/superpowers/specs/2026-06-02-env-and-json-ui-config-design.md
+plan: null
+verify_result: pending
+verification_report: null
+branch_status: pending
+created_at: 2026-06-02
+verified_at: null
+archived: false
+handoff_context: openspec/changes/env-and-json-ui-config/.comet/handoff/design-context.json
+handoff_hash: e84d75f26d95d35134ee4a4b44bbdf4f75bf9e5827b6431a4452b4d9cd5b251e

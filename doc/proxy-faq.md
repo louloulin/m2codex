@@ -15,7 +15,7 @@ When mimo2codex misbehaves on Mac or Windows, the issue is usually **not** the p
 
 ```
 [Codex CLI / Codex Desktop]
-        │  ① local loopback (127.0.0.1:8788)
+        │  ① local loopback (127.0.0.1:8988)
         ▼
 [mimo2codex]
         │  ② outbound HTTPS (subject to system proxy / VPN / firewall)
@@ -25,7 +25,7 @@ When mimo2codex misbehaves on Mac or Windows, the issue is usually **not** the p
 
 Each hop has its own failure modes:
 
-- **① Client → mimo2codex**: loopback, almost never the problem. If port `8788` is busy or mimo2codex isn't running, the client sees `ECONNREFUSED` — **not 502**.
+- **① Client → mimo2codex**: loopback, almost never the problem. If port `8988` is busy or mimo2codex isn't running, the client sees `ECONNREFUSED` — **not 502**.
 - **② mimo2codex → upstream**: the source of most 502 / `ETIMEDOUT` / `ENOTFOUND` errors.
 
 **Key fact (v0.4.5+)**: mimo2codex **reads** `HTTPS_PROXY` / `HTTP_PROXY` / `NO_PROXY` env vars on startup and routes its upstream fetch through them — same behavior as `curl` / `git`. But **"system proxy" ≠ "process proxy"**: toggling the "System Proxy" switch in macOS Settings, Clash for Mac, Clash for Windows, Surge, V2RayN, etc. **does not** auto-export these env vars to the mimo2codex process. To route mimo2codex through a proxy, **explicitly export** `HTTPS_PROXY` / `HTTP_PROXY` (see §3.2 / §4.2) — or declare them in the `environment:` section of `docker-compose.yml` for Docker deployments.
@@ -92,7 +92,7 @@ source ~/.zshrc
 **Important**:
 
 - `7890` is Clash's default HTTP-proxy port; Surge defaults are `6152` / `6153`; V2Box might be `1087`. Use whatever your proxy app actually listens on.
-- **`NO_PROXY=localhost,127.0.0.1,::1` is mandatory.** Otherwise, when Codex talks to mimo2codex via `127.0.0.1:8788`, the proxy app intercepts that too and produces `tunneling socket could not be established` or similar.
+- **`NO_PROXY=localhost,127.0.0.1,::1` is mandatory.** Otherwise, when Codex talks to mimo2codex via `127.0.0.1:8988`, the proxy app intercepts that too and produces `tunneling socket could not be established` or similar.
 
 ### 3.3 macOS sanity-check commands
 
@@ -103,8 +103,8 @@ env | grep -i proxy
 # 2. Bypass mimo2codex — curl the upstream directly to test the network layer.
 curl -v https://token-plan-cn.xiaomimimo.com/v1/models -H "Authorization: Bearer $YOUR_KEY"
 
-# 3. Is mimo2codex listening on 8788?
-lsof -i :8788
+# 3. Is mimo2codex listening on 8988?
+lsof -i :8988
 
 # 4. mimo2codex log (if redirected to a file)
 tail -n 50 ~/.mimo2codex/mimo2codex.log 2>/dev/null
@@ -165,8 +165,8 @@ Get-ChildItem env: | Where-Object Name -match 'proxy'
 # 2. Hit upstream directly with curl (PowerShell 7+ has curl.exe; Windows 10/11 bundles it too)
 curl.exe -v https://token-plan-cn.xiaomimimo.com/v1/models -H "Authorization: Bearer $env:YOUR_KEY"
 
-# 3. Is mimo2codex listening on 8788?
-Get-NetTCPConnection -LocalPort 8788 -ErrorAction SilentlyContinue
+# 3. Is mimo2codex listening on 8988?
+Get-NetTCPConnection -LocalPort 8988 -ErrorAction SilentlyContinue
 
 # 4. mimo2codex log (default dir)
 Get-Content $env:USERPROFILE\.mimo2codex\mimo2codex.log -Tail 50 -ErrorAction SilentlyContinue
@@ -202,13 +202,13 @@ Match the exact text you see in the client / terminal.
   - Try `curl -v -x http://<proxy>:<port> https://upstream.example.com/` from the same host (or inside the same Docker network) — if curl fails the same way, fix the proxy side first.
   - **Docker gotcha**: `HTTPS_PROXY=http://127.0.0.1:7890` doesn't work inside a container — `127.0.0.1` is the container itself. Use `host.docker.internal` (mac/win) or the host's LAN IP.
 
-### `connect ECONNREFUSED 127.0.0.1:8788`
+### `connect ECONNREFUSED 127.0.0.1:8988`
 
 - **Meaning**: the Codex client **can't reach mimo2codex itself**.
 - **Versus 502**: 502 = "proxy is up, upstream is down"; ECONNREFUSED = "proxy isn't running or wrong port".
 - **Check**:
-  - Mac: `lsof -i :8788`
-  - Win: `Get-NetTCPConnection -LocalPort 8788`
+  - Mac: `lsof -i :8988`
+  - Win: `Get-NetTCPConnection -LocalPort 8988`
   - If the port is taken: launch with `mimo2codex --port 8889` and update Codex's baseUrl to match.
 
 ### `Reconnecting... 1/5 ... unexpected status 502 Bad Gateway`
@@ -318,7 +318,7 @@ Sample:
 
 Typical path to this log line:
 
-1. You chose "Custom OpenAI-compatible service" in Codex Desktop and pointed the baseUrl at `http://127.0.0.1:8788`.
+1. You chose "Custom OpenAI-compatible service" in Codex Desktop and pointed the baseUrl at `http://127.0.0.1:8988`.
 2. **You left the model field at Codex's factory default.** Different Codex versions ship different defaults — recent ones have used `gpt-5`, `gpt-5-codex`, `gpt-5-mini`, `gpt-5.4`, `gpt-5.4-mini` as placeholders.
 3. Codex sends that literal string in every request's `model` field.
 4. mimo2codex can't find `gpt-5.4` in any provider's `builtinModels`, so it falls back to the default provider's default model (`mimo-v2.5-pro`).

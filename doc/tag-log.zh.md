@@ -23,6 +23,8 @@ mimo2codex 的版本发布历史，按 tag 倒序排列。
 
 - **[new]** **面向长期运行部署的日志存储控制**：**解决什么问题** —— 以前每次请求/响应都会被完整记录并永久保存，所以在常驻部署（Docker、团队/多人共享）里 `data.db` 会无上限地膨胀：占磁盘、拖慢备份和日志页，还会把完整对话内容留存得比你出于隐私考虑想要的更久。现在有两个旋钮来封顶。`MIMO2CODEX_LOG_BODY_MODE=full|errors-only|off`（日志页 →「存储设置」也能设）可保留全部调试细节、只保留失败请求的 body（够排障、体积小很多）、或完全关闭 body 记录。`MIMO2CODEX_LOG_RETENTION_DAYS=<n>`（同一处）会自动删除超过 `n` 天的旧记录——启动时及运行期间每 6 小时各跑一次；设为 `0` 关闭清理。典型用法：小 VPS / 团队代理设 `errors-only` + `30`，数据库就稳定在可控大小，而不会几个月下来越滚越大。设置存在 DB 里（改完免重启），且 env/CLI 显式设置时优先。
 
+- **[opt]** **默认监听端口从 8788 改为 8988**：8788 现在越来越容易被其他开发工具（Vite、webpack-dev-server、各种 Node CLI）占用，新装用户启动 `mimo2codex` 时常常要再敲 `--port` 才能避开冲突。改成 8988 后，开箱默认就能起。仓库内所有相关位置已同步更新：`src/config.ts` / `src/cli.ts` 默认值、Vite dev 代理和管理端 client、`Dockerfile`（`EXPOSE` + `PORT` 环境变量）、`docker-compose.yml` 端口映射、`.env.example` 注释、桌面端预填的端口（`package/desktop/src/runtime.ts`、`package/desktop/renderer/settings/App.tsx`）、测试 fixture，以及所有文档。仍可用 `--port`、`MIMO2CODEX_PORT` 或桌面端 `.env` 里的 `PORT` 覆盖。若你已有指向 8788 的 systemd unit、Docker `-p` 映射或 Codex `base_url`，请改成 8988（或者固定加 `--port 8788` 维持现状）。
+
 ---
 
 ## v0.5.20

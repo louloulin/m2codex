@@ -93,8 +93,8 @@ The Docker image already ships with `MIMO2CODEX_AUTH=on` baked in. Nothing extra
 ```bash
 docker compose up -d
 # Just open the browser — no docker logs needed:
-open http://localhost:8788          # mac / Linux
-start http://localhost:8788         # Windows
+open http://localhost:8988          # mac / Linux
+start http://localhost:8988         # Windows
 ```
 
 If for whatever reason you want to disable auth inside Docker (**not recommended** — that exposes your upstream key to anyone who can reach the container port):
@@ -109,7 +109,7 @@ services:
 
 ## First start: create the initial admin
 
-After starting the service, just open `http://<host>:8788/admin/` in a browser. The SPA notices the `users` table is empty and routes straight to the **First-run setup** page:
+After starting the service, just open `http://<host>:8988/admin/` in a browser. The SPA notices the `users` table is empty and routes straight to the **First-run setup** page:
 
 - **Admin username** — pick anything (e.g. `root` / `admin`)
 - **Display name** — optional, defaults to the username
@@ -127,8 +127,8 @@ Same first-run pattern as Jellyfin / Nextcloud / Synology — **first browser to
 
 ```bash
 docker compose up -d
-open http://localhost:8788          # mac / Linux
-start http://localhost:8788         # Windows
+open http://localhost:8988          # mac / Linux
+start http://localhost:8988         # Windows
 ```
 
 No `docker logs`, no `docker exec`, no token to copy around.
@@ -173,7 +173,7 @@ How to mint one:
 { "OPENAI_API_KEY": "m2c_<your token>" }
 ```
 
-`~/.codex/config.toml`: set `base_url` to your deployment (`http://<host>:8788/v1` over LAN, or `https://your-domain/v1` over a TLS reverse proxy).
+`~/.codex/config.toml`: set `base_url` to your deployment (`http://<host>:8988/v1` over LAN, or `https://your-domain/v1` over a TLS reverse proxy).
 
 > Don't want to edit files by hand? `/admin/codex` → **Current state** card → **Export to local** button downloads a ready-to-apply bundle. See [Codex config import / export](#codex-config-import--export) below for the full flow.
 

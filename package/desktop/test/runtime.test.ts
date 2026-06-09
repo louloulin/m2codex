@@ -34,7 +34,7 @@ describe("saveRuntime", () => {
   });
 
   it("strips ephemeral fields (launchedByAutostart) before writing", () => {
-    saveRuntime(dir, { port: 8788, autostart: false, launchedByAutostart: true });
+    saveRuntime(dir, { port: 8988, autostart: false, launchedByAutostart: true });
     const parsed = JSON.parse(readFileSync(join(dir, "runtime.json"), "utf8"));
     expect(parsed.launchedByAutostart).toBeUndefined();
   });

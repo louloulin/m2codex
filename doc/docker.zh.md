@@ -36,12 +36,12 @@ docker compose up -d
 
 # 3. 打开 admin UI
 # Mac/Linux:
-open http://localhost:8788
+open http://localhost:8988
 # Windows:
-start http://localhost:8788
+start http://localhost:8988
 ```
 
-完成。后续配 Codex 用 `http://localhost:8788/v1` 当 base URL 即可。
+完成。后续配 Codex 用 `http://localhost:8988/v1` 当 base URL 即可。
 
 ## 纯 docker run 单行命令
 
@@ -50,13 +50,13 @@ start http://localhost:8788
 ```bash
 # 简版（key 直接传，无持久化）
 docker run -d --name mimo2codex \
-  -p 8788:8788 \
+  -p 8988:8988 \
   -e MIMO_API_KEY=sk-xxxxxxxxxxxx \
   ghcr.io/7as0nch/mimo2codex:latest
 
 # 带数据持久化 + .env 文件
 docker run -d --name mimo2codex \
-  -p 8788:8788 \
+  -p 8988:8988 \
   --env-file ./.env \
   -e MIMO2CODEX_DATA_DIR=/data \
   -v ~/.mimo2codex:/data \
@@ -252,12 +252,12 @@ volumes:
   - ./.mimo2codex:/data
 ```
 
-### Q: 端口 8788 被占用
+### Q: 端口 8988 被占用
 
 改 compose `ports:` 左侧（宿主机端口）：
 ```yaml
 ports:
-  - "9999:8788"     # 宿主 9999 → 容器 8788
+  - "9999:8988"     # 宿主 9999 → 容器 8988
 ```
 重启后浏览器开 http://localhost:9999。
 

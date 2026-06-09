@@ -8,7 +8,7 @@ const patch: ProviderTomlPatch = {
   providerKey: "mimo",
   providerBlock: `[model_providers.mimo]
 name = "MiMo"
-base_url = "http://127.0.0.1:8788/v1"
+base_url = "http://127.0.0.1:8988/v1"
 wire_api = "responses"
 requires_openai_auth = true
 request_max_retries = 1`,
@@ -67,7 +67,7 @@ wire_api = "chat"
 `;
     const out = mergeCodexProviderToml(existing, patch);
     expect(out.match(/\[model_providers\.mimo\]/g)?.length).toBe(1);
-    expect(out).toContain(`base_url = "http://127.0.0.1:8788/v1"`);
+    expect(out).toContain(`base_url = "http://127.0.0.1:8988/v1"`);
     expect(out).not.toContain(`name = "Stale"`);
     expect(out).not.toContain(`http://127.0.0.1:9999/v1`);
   });
@@ -77,7 +77,7 @@ wire_api = "chat"
 
 [model_providers.mimo2codex]
 name = "DeepSeek (legacy key)"
-base_url = "http://127.0.0.1:8788/v1"
+base_url = "http://127.0.0.1:8988/v1"
 `;
     const out = mergeCodexProviderToml(existing, patch);
     // The unrelated deepseek-keyed table must survive.
@@ -111,7 +111,7 @@ model_context_window = 200000
 
 [model_providers.mimo]
 name = "MiMo"
-base_url = "http://127.0.0.1:8788/v1"
+base_url = "http://127.0.0.1:8988/v1"
 wire_api = "responses"
 requires_openai_auth = true
 request_max_retries = 1

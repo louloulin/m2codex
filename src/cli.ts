@@ -65,7 +65,7 @@ USAGE
   mimo2codex print-cc-switch
 
 OPTIONS
-  -p, --port <n>          listen port (default: 8788, env: MIMO2CODEX_PORT)
+  -p, --port <n>          listen port (default: 8988, env: MIMO2CODEX_PORT)
       --host <h>          bind host (default: 127.0.0.1, env: MIMO2CODEX_HOST)
       --model <shortcut>  default upstream provider: "mimo" (default) or "ds" (DeepSeek)
       --base-url <url>    base url for the default provider (env: MIMO_BASE_URL / DEEPSEEK_BASE_URL)
@@ -596,7 +596,7 @@ async function main(): Promise<void> {
 
   if (parsed.positional[0] === "print-config") {
     const host = parsed.host ?? "127.0.0.1";
-    const port = parsed.port ?? 8788;
+    const port = parsed.port ?? 8988;
     const useEnvKey = parsed.envKey === true;
     const target = resolveSnippetTarget(parsed.model);
     // eslint-disable-next-line no-console
@@ -610,7 +610,7 @@ async function main(): Promise<void> {
 
   if (parsed.positional[0] === "print-cc-switch") {
     const host = parsed.host ?? "127.0.0.1";
-    const port = parsed.port ?? 8788;
+    const port = parsed.port ?? 8988;
     const target = resolveSnippetTarget(parsed.model);
     // eslint-disable-next-line no-console
     console.log(ccSwitchSnippet({ host, port }, target));
